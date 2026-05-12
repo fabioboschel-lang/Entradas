@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil Moderno con LocalStorage</title>
+<style>
+
+
+
+
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    
+  }
+
+body {
+  background:
+  black;
+  background-size: 400% 400%;
+  animation: gradientBG 20s ease infinite;
+  margin: 0;
+  font-family: 'Anton', sans-serif;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+  .container {
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    
+    
+    
+    
+  
+    
+
+    justify-content: center;
+    gap: 30px;
+  }
+
+
+  
+}
+.fullscreen input {
+  width: 80%;
+  font-size: 24px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.fullscreen button {
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Contenedor scrollable */
+/* Contenedor principal del feed */
+.feed-container {
+  height: 100vh;                   /* ocupa toda la pantalla */
+  overflow-y: scroll;              /* scroll vertical */
+  scroll-snap-type: y mandatory;   /* snap vertical obligatorio */
+  scroll-behavior: smooth;     
+  
+
+  
+}
+
+/* Grid que contiene todos los posts */
+.imagesGrid {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  
+}
+
+/* Cada post individual */
+.post {
+position: relative;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;  /* evita saltar múltiples posts */
+       overflow: hidden;/* evita que los elementos sobresalgan */
+    height: calc(100vh - 89px)
+  
+}
+
+/* Fondo borroso del post (efecto vidrio) */
+.post-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;       /* ocupa todo el post */
+  background-position: center;  /* centra la imagen */
+  filter: blur(2px) brightness(1); /* borroso y un poco oscuro */
+  z-index: 0;                   /* detrás de la imagen principal */
+  
+}
+
+/* Imagen principal del post */
+.feed-img {
+  position: relative;           /* encima del fondo borroso */
+  width: 100%;
+  height: 100%;                 /* ocupa todo el contenedor del post */
+  object-fit: contain;          /* mantiene la proporción completa */
+  z-index: 1;                   /* encima del fondo borroso */
+
+}
+.lkeBtn {
+  position: absolute;           /* posicionamiento relativo al post */
+  bottom: 100px;                /* altura desde la base del post */
+  right: 10px;                  /* distancia desde la derecha */
+  z-index: 333;                   /* encima de imagen y texto */
+  
+  background: none;             /* sin fondo */
+  border: none;                 /* sin borde */
+  font-size: 28px;              /* tamaño del corazón */
+  cursor: pointer;
+  
+  transition: transform 0.1s ease, opacity 0.1s ease, filter 0.1s ease;
+  -webkit-tap-highlight-color: transparent; /* evita efecto de toque en móviles */
+}
+
+.likeBtn:active {
+  transform: scale(1.2);        /* efecto de "clic" */
+  filter: drop-shadow(0 0 5px red);
+}
+
+/* Texto del post */
+.post-text {
+  position: absolute;
+  
+  color: white;
+  font-size: 18px;
+  z-index: 2; /* encima de la imagen */
+}
+
+/* Texto del post */
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+.post img.feed-img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+.Flyerbox {
+  position: relative;      /* 🔥 ahora top funciona */
+  margin-top: 100px;        /* 👈 lo baja desde arriba */
+
+  width: 85%;              /* no ocupa todo */
+  max-width: 400px;        /* límite pro */
+
+  aspect-ratio: 16 / 9;    /* 👈 forma correcta */
+  
+  margin-left: auto;
+  margin-right: auto;      /* centrado */
+
+  border-radius: 20px;
+  overflow: hidden;
+
+  /* estética pro */
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+.flyerimg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .50s ease;
+  display: block;
+}
+
+.flyerimg.loaded{
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+</style>
+<link rel="stylesheet" href="./Splash.css">
+
+<link rel="stylesheet" href="./Bailarias.css">
+
+<link rel="stylesheet" href="./Cruzarias.css">
+
+<link rel="stylesheet" href="./Conocerias.css">
+
+
+
+
+<link rel="stylesheet" href="./Corazones.css">
+
+
+
+<link rel="stylesheet" href="./Mensajes.css">
+
+<link rel="stylesheet" href="./Profile.css">
+
+<link rel="stylesheet" href="./Avioncito.css">
+
+<link rel="stylesheet" href="./welcome.css">
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="./House.css">
+
+<link rel="stylesheet" href="./Navegacion.css">
+
+
+<link rel="stylesheet" href="./Chat.css">
+
+
+
+</head>
+<body>
+<div id="splash-screen" class="splash-screen">
+
+  <img
+    src="./logo-vybe.png"
+    class="splash-logo"
+    alt="VYBE"
+  >
+
+</div>
+
+<div id="app"></div>
+
+<div id="nav"></div>
+
+
+
+<script type="module" src="app.js"></script>
+
+
+</body>
+</html>
